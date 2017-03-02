@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <title>UVic Campus Map</title>
+    <style>
+       #map {
+        height: 600px;
+        width: 500;
+       }
+    </style>
+    </head>
+        <body>
+           <div id="map"></div>
+                <script>
+                function map() {
+                
+                var locations = 
+                    [
+                        [
+                        "David Turpin Building",
+                        48.464799,
+                        -123.314551
+                        ],
+                        [
+                            "ECS",
+                        48.461188,
+                        -123.311802
+                        ],
+                        [   
+                            "University Center",
+                        48.465089,
+                        -123.311768
+                        ]
+                    ]
+
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 15,
+                    center: new google.maps.LatLng(48.463649,  -123.311951),
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                    });
+                
+                var infowindow = new google.maps.InfoWindow();
+                
+                var marker, i;
+
+                    for (i = 0; i < locations.length; i++) {  
+                    marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(locations[i][1], locations[i][2], locations[i][3]),
+                        map: map
+                    });
+
+                    google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                    return function() {
+                    infowindow.setContent(locations[i][0]);
+                    infowindow.open(map, marker);
+                    }
+                    })(marker, i));
+                    }
+                    }
+                </script>
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuMspedCiuO5PQlvk6x-g_oaXFnTJ-qVY&callback=map">
+                </script>
+        </body>
+    </html>
